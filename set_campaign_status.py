@@ -1,7 +1,7 @@
 from googleads import adwords
 
 campaign_id = '9328039918'
-status = 'PAUSED'
+status = 'ENABLED'
 
 
 def main(client, campaign_status):
@@ -23,5 +23,5 @@ def main(client, campaign_status):
 
 
 if __name__ == '__main__':
-    adwords_client = adwords.AdWordsClient.LoadFromStorage('/Users/keenan/dev/googleads-python-lib/googleads.yaml')
+    adwords_client = adwords.AdWordsClient.LoadFromStorage('/Users/keenan/dev/ads/auth/googleads.yaml')
     main(adwords_client, status)

@@ -36,5 +36,5 @@ def main(client):
 
 
 if __name__ == '__main__':
-  adwords_client = adwords.AdWordsClient.LoadFromStorage('/Users/keenan/dev/googleads-python-lib/googleads.yaml')
+  adwords_client = adwords.AdWordsClient.LoadFromStorage('/Users/keenan/dev/ads/auth/googleads.yaml')
   main(adwords_client)
