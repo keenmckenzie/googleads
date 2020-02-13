@@ -4,7 +4,7 @@ campaign_id = '9328039918'
 status = 'ENABLED'
 
 
-def main(client, campaign_status):
+def main(client, new_status):
     # Initialize appropriate service.
     campaign_service = client.GetService('CampaignService', version='v201809')
     # Construct operations and add campaigns.
@@ -12,7 +12,7 @@ def main(client, campaign_status):
         'operator': 'SET',
         'operand': {
             'id': campaign_id,
-            'status': campaign_status
+            'status': new_status,
         }
     }]
     campaigns = campaign_service.mutate(operations)

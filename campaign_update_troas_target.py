@@ -1,10 +1,10 @@
 from googleads import adwords
 
-campaign_id = '9328039918'
-status = 'ENABLED'
+CAMPAIGN_ID = '9328039918'
+TARGET_ROAS = 600
 
 
-def main(client, campaign_status):
+def main(client, campaign_id, target_roas):
     # Initialize appropriate service.
     campaign_service = client.GetService('CampaignService', version='v201809')
     # Construct operations and add campaigns.
@@ -12,16 +12,24 @@ def main(client, campaign_status):
         'operator': 'SET',
         'operand': {
             'id': campaign_id,
-            'status': campaign_status
+            'biddingStrategyConfiguration': {
+                'biddingStrategyType': 'TARGET_ROAS',
+                'biddingScheme': {
+                    'xsi_type': 'TargetRoasBiddingScheme',
+                    'targetRoas': target_roas,
+                    'bidCeiling': 10,
+                    'bidFloor': 1
+                }
+            }
         }
     }]
     campaigns = campaign_service.mutate(operations)
 
     for campaign in campaigns['value']:
         print('Campaign with name "%s" and id "%s" is now "%s".'
-              % (campaign['name'], campaign['id'], campaign['status']))
+              % (campaign['name'], campaign['id'], campaign['biddingStrategyConfiguration']))
 
 
 if __name__ == '__main__':
     adwords_client = adwords.AdWordsClient.LoadFromStorage('/Users/keenan/dev/ads/auth/googleads.yaml')
-    main(adwords_client, status)
+    main(adwords_client, CAMPAIGN_ID, TARGET_ROAS)
