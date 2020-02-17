@@ -1,8 +1,8 @@
 import uuid
 from googleads import adwords
 
-CAMPAIGN_ID = '9328039918'
-ADGROUP_NAME = 'First Test AdGroup'
+CAMPAIGN_ID = '9350905339'
+ADGROUP_NAME = 'Second Campaign Test'
 
 
 def main(client, campaign_id, adgroup_name):
@@ -61,6 +61,7 @@ def main(client, campaign_id, adgroup_name):
     for ad_group in ad_groups['value']:
         print('Ad group with name "%s" and id "%s" was added.'
               % (ad_group['name'], ad_group['id']))
+        return ad_group['id']
 
 
 if __name__ == '__main__':

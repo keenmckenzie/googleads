@@ -1,7 +1,7 @@
 from googleads import adwords
 
-campaign_id = '9328039918'
-status = 'ENABLED'
+campaign_id = '9366062070'
+status = 'PAUSED'
 
 
 def main(client, campaign_status):
