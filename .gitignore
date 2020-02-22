@@ -4,3 +4,4 @@ auth/
 auth/googleads.yaml
 auth/generate_refresh_token.py
 __pycache__/
+.DS_Store
