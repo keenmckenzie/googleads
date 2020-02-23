@@ -4,7 +4,7 @@ from googleads import adwords
 PAGE_SIZE = 100
 
 
-def main(client):
+def get_campaigns(client):
   campaign_list = []
   # Initialize appropriate service.
   campaign_service = client.GetService('CampaignService', version='v201809')
@@ -39,4 +39,4 @@ def main(client):
 
 if __name__ == '__main__':
   adwords_client = adwords.AdWordsClient.LoadFromStorage('/Users/keenan/dev/ads/auth/googleads.yaml')
-  main(adwords_client)
+  get_campaigns(adwords_client)

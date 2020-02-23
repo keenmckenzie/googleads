@@ -1,11 +1,12 @@
 from googleads import adwords
-from flask import Blueprint, jsonify, render_template, request
-from ad_manager.api.get_campaigns import main
+from flask import Blueprint
+from ad_manager.api.campaign_management.get_campaigns import get_campaigns
 
 mod = Blueprint('api', __name__)
 
+
 @mod.route('/get_campaigns')
 def campaigns():
-   adwords_client = adwords.AdWordsClient.LoadFromStorage('/Users/keenan/dev/ads/auth/googleads.yaml')
-   campaigns = main(adwords_client)
-   return campaigns
+    adwords_client = adwords.AdWordsClient.LoadFromStorage('/Users/keenan/dev/ads/auth/googleads.yaml')
+    campaign_list = get_campaigns(adwords_client)
+    return campaign_list
