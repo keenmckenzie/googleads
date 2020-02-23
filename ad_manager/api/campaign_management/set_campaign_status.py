@@ -1,10 +1,10 @@
 from googleads import adwords
 
-campaign_id = '9366062070'
+CAMPAIGN_ID = '9366062070'
 status = 'ENABLED'
 
 
-def update_status(client, campaign_status):
+def update_status(client, campaign_status, campaign_id):
     # Initialize appropriate service.
     campaign_service = client.GetService('CampaignService', version='v201809')
     # Construct operations and add campaigns.
