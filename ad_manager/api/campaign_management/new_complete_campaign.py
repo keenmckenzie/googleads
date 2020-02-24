@@ -1,5 +1,7 @@
 from googleads import adwords
-import add_adgroup, keyword_add, ad_add
+from ad_manager.api.keyword_management import keyword_add
+from ad_manager.api.ad_management import ad_add
+from ad_manager.api.adgroup_management import add_adgroup
 from ad_manager.api.campaign_management import add_campaign
 
 CAMPAIGN_NAME = 'Kamryn Demo Test Campaign'
