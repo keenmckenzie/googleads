@@ -4,7 +4,7 @@ CAMPAIGN_ID = '9328039918'
 TARGET_ROAS = 600
 
 
-def main(client, campaign_id, target_roas):
+def update_target(client, campaign_id, target_roas):
     # Initialize appropriate service.
     campaign_service = client.GetService('CampaignService', version='v201809')
     # Construct operations and add campaigns.
@@ -32,4 +32,4 @@ def main(client, campaign_id, target_roas):
 
 if __name__ == '__main__':
     adwords_client = adwords.AdWordsClient.LoadFromStorage('/Users/keenan/dev/ads/auth/googleads.yaml')
-    main(adwords_client, CAMPAIGN_ID, TARGET_ROAS)
+    update_target(adwords_client, CAMPAIGN_ID, TARGET_ROAS)

@@ -5,7 +5,7 @@ from googleads import adwords
 CAMPAIGN_NAME = 'Another Test Campaign'
 
 
-def main(client, campaign_name):
+def add_campaign(client, campaign_name):
     # Initialize appropriate services.
     campaign_service = client.GetService('CampaignService', version='v201809')
     budget_service = client.GetService('BudgetService', version='v201809')
@@ -66,4 +66,4 @@ if __name__ == '__main__':
     # Initialize client object.
     adwords_client = adwords.AdWordsClient.LoadFromStorage('/Users/keenan/dev/googleads-python-lib/googleads.yaml')
 
-    main(adwords_client, CAMPAIGN_NAME)
+    add_campaign(adwords_client, CAMPAIGN_NAME)
