@@ -66,6 +66,6 @@ def main(client, campaign_id, adgroup_name):
 
 if __name__ == '__main__':
     # Initialize client object.
-    adwords_client = adwords.AdWordsClient.LoadFromStorage('/Users/keenan/dev/ads/auth/googleads.yaml')
+    adwords_client = adwords.AdWordsClient.LoadFromStorage('/Users/keenan/dev/googleads/auth/googleads.yaml')
 
     main(adwords_client, CAMPAIGN_ID, ADGROUP_NAME)

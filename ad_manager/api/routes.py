@@ -9,7 +9,7 @@ mod = Blueprint('api', __name__)
 
 @mod.route('/get-campaigns')
 def campaigns():
-    adwords_client = adwords.AdWordsClient.LoadFromStorage('/Users/keenan/dev/ads/auth/googleads.yaml')
+    adwords_client = adwords.AdWordsClient.LoadFromStorage('/Users/keenan/dev/googleads/auth/googleads.yaml')
     campaign_list = get_campaigns(adwords_client)
     return campaign_list
 
@@ -18,7 +18,7 @@ def campaigns():
 def update_campaign_status():
     status = request.args.get('status')
     campaign_id = request.args.get('id')
-    adwords_client = adwords.AdWordsClient.LoadFromStorage('/Users/keenan/dev/ads/auth/googleads.yaml')
+    adwords_client = adwords.AdWordsClient.LoadFromStorage('/Users/keenan/dev/googleads/auth/googleads.yaml')
     update_status(adwords_client, status, campaign_id)
     return {"status": "success"}
 
@@ -26,6 +26,6 @@ def update_campaign_status():
 @mod.route('new-campaign')
 def new_campaign():
     campaign_name = request.args.get('name')
-    adwords_client = adwords.AdWordsClient.LoadFromStorage('/Users/keenan/dev/ads/auth/googleads.yaml')
+    adwords_client = adwords.AdWordsClient.LoadFromStorage('/Users/keenan/dev/googleads/auth/googleads.yaml')
     build_campaign(adwords_client, campaign_name)
     return render_template('campaigns.html')

@@ -45,5 +45,5 @@ def get_campaigns(client):
 
 
 if __name__ == '__main__':
-    adwords_client = adwords.AdWordsClient.LoadFromStorage('/Users/keenan/dev/ads/auth/googleads.yaml')
+    adwords_client = adwords.AdWordsClient.LoadFromStorage('/Users/keenan/dev/googleads/auth/googleads.yaml')
     get_campaigns(adwords_client)
