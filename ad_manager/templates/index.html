@@ -3,8 +3,58 @@
 <head>
 <meta charset="utf-8">
 <title>Keenan's Ads App</title>
+        <style>
+                .nav-bar{
+                        list-style-type: none;
+                        margin: 0;
+                        padding: 0;
+                        overflow: hidden;
+                        background-color: #333;
+                }
+                .nav-bar-item{
+                        float: left;
+                }
+                .nav-link{
+                        display: block;
+                        color: white;
+                        text-align: center;
+                        padding: 14px 16px;
+                        text-decoration: none;
+                }
+                .nav-link:hover{
+                        background-color: #111;
+                }
+                .header{
+                        background-color: #333;
+                        text-align: center;
+                        padding: 20px;
+                        margin-bottom: 0;
+                        color: white;
+                }
+        </style>
 </head>
+
 <body>
-<h2> Keenan's Ads App <h3>
+        <div>
+                <h2 class="header"> Keenan's Ads App</h2>
+        </div>
+        <div>
+                <ul class="nav-bar">
+                        <li class="nav-bar-item"> <a class="nav-link" href="home"> Home</a></li>
+                        <li class="nav-bar-item"> <a class="nav-link" href="campaigns"> Get Campaigns</a></li>
+                        <li class="nav-bar-item"> <a class="nav-link" href="new_campaign"> New Campaign</a></li>
+                </ul>
+        </div>
+        <div class="body">
+                <h2>Application to manage adwords campaigns</h2>
+                <p> Features (will) include:</p>
+                    <ul>
+                        <li> Building new campaigns</li>
+                        <li> Location Targeting</li>
+                        <li> Bid Strategy Management</li>
+                        <li> Smart Bidding Management</li>
+                        <li> Smart Bidding Reporting</li>
+                    </ul>
+        </div>
 </body>
 </html>

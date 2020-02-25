@@ -1,5 +1,5 @@
 from googleads import adwords
-from flask import Blueprint, request
+from flask import Blueprint, request, render_template
 from ad_manager.api.campaign_management.get_campaigns import get_campaigns
 from ad_manager.api.campaign_management.set_campaign_status import update_status
 from ad_manager.api.campaign_management.new_complete_campaign import build_campaign
@@ -28,4 +28,4 @@ def new_campaign():
     campaign_name = request.args.get('name')
     adwords_client = adwords.AdWordsClient.LoadFromStorage('/Users/keenan/dev/ads/auth/googleads.yaml')
     build_campaign(adwords_client, campaign_name)
-    return {"status": campaign_name + " built successfully"}
+    return render_template('campaigns.html')
