@@ -13,6 +13,6 @@ def campaigns():
     return render_template('campaigns.html')
 
 
-@mod.route('/new_campaign')
+@mod.route('/dynamic_campaign')
 def new_campaign():
     return render_template('new_campaign_form.html')

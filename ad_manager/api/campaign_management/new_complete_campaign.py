@@ -23,5 +23,5 @@ def build_campaign(client, campaign_name, num_adgroups=2, num_keywords=3):
 
 if __name__ == '__main__':
     # Initialize client object.
-    adwords_client = adwords.AdWordsClient.LoadFromStorage('/Users/keenan/dev/ads/auth/googleads.yaml')
+    adwords_client = adwords.AdWordsClient.LoadFromStorage('/Users/keenan/dev/googleads/auth/googleads.yaml')
     build_campaign(adwords_client, CAMPAIGN_NAME)

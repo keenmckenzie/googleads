@@ -3,6 +3,7 @@ from flask import Blueprint, request, render_template
 from ad_manager.api.campaign_management.get_campaigns import get_campaigns
 from ad_manager.api.campaign_management.set_campaign_status import update_status
 from ad_manager.api.campaign_management.new_complete_campaign import build_campaign
+from ad_manager.api.campaign_management.new_dynamic import dynamic_campaign
 
 mod = Blueprint('api', __name__)
 
@@ -23,9 +24,16 @@ def update_campaign_status():
     return {"status": "success"}
 
 
-@mod.route('new-campaign')
+@mod.route('/new-campaign')
 def new_campaign():
     campaign_name = request.args.get('name')
     adwords_client = adwords.AdWordsClient.LoadFromStorage('/Users/keenan/dev/googleads/auth/googleads.yaml')
     build_campaign(adwords_client, campaign_name)
+    return render_template('campaigns.html')
+
+@mod.route('/dynamic-campaign')
+def new_dynamic():
+    event_name = request.args.get('name')
+    adwords_client = adwords.AdWordsClient.LoadFromStorage('/Users/keenan/dev/googleads/auth/googleads.yaml')
+    dynamic_campaign(adwords_client, event_name)
     return render_template('campaigns.html')
