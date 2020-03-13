@@ -1,6 +1,6 @@
 from flask import Blueprint, jsonify, render_template, request
 
-mod = Blueprint('espn', __name__)
+mod = Blueprint('web', __name__)
 
 
 @mod.route('/home')
@@ -16,3 +16,7 @@ def campaigns():
 @mod.route('/dynamic_campaign')
 def new_campaign():
     return render_template('new_campaign_form.html')
+
+@mod.route('/update_target')
+def update_target():
+    return render_template('update_target_form.html')
