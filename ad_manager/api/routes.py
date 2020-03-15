@@ -49,5 +49,5 @@ def update_target():
     campaign = Campaign(campaign_id)
     adwords_client = adwords.AdWordsClient.LoadFromStorage('/Users/keenan/dev/googleads/auth/googleads.yaml')
     campaign.update_target(adwords_client, new_target)
-    return render_template('campaigns.html')
+    return render_template('update_target_form.html')
     ##return "Update target to: " + str(new_target)
