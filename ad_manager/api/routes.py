@@ -1,6 +1,6 @@
 from googleads import adwords
 import os
-from flask import Blueprint, request, render_template
+from flask import Blueprint, request, render_template, redirect, url_for
 from ad_manager.api.campaign_management.get_campaigns import get_campaigns
 from ad_manager.api.campaign_management.set_campaign_status import update_status
 from ad_manager.api.campaign_management.new_complete_campaign import build_campaign
@@ -46,11 +46,12 @@ def new_dynamic():
 
 
 @mod.route('/update_target')
-def update_target():
+def update_target_api():
     new_target = int(request.args.get('target'))/100
     campaign_id = request.args.get('campaignId')
     campaign = Campaign(campaign_id)
     adwords_client = adwords.AdWordsClient.LoadFromStorage(googleads_path)
     campaign.update_target(adwords_client, new_target)
-    return render_template('update_target_form.html')
+    ##return render_template('update_target_form.html')
+    return redirect('https://fast-refuge-34078.herokuapp.com/update_target')
     ##return "Update target to: " + str(new_target)
