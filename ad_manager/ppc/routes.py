@@ -26,3 +26,8 @@ def new_campaign():
 @mod.route('/update_target')
 def update_target_form():
     return render_template('update_target_form.html')
+
+
+@mod.route('/mlb_campaigns')
+def mlb_campaigns():
+    return render_template('mlb_campaigns.html')
