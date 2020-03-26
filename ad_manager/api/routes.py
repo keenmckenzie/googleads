@@ -1,7 +1,7 @@
 from googleads import adwords
 import os
 from flask import Blueprint, request, render_template, redirect, url_for
-from ad_manager.api.campaign_management.get_campaigns import get_campaigns
+from ad_manager.api.campaign_management.get_campaigns import get_campaigns, get_mlb_campaigns
 from ad_manager.api.campaign_management.set_campaign_status import update_status
 from ad_manager.api.campaign_management.new_complete_campaign import build_campaign
 from ad_manager.api.campaign_management.new_dynamic import dynamic_campaign
@@ -17,6 +17,13 @@ googleads_path = cwd + '/auth/googleads.yaml'
 def campaigns():
     adwords_client = adwords.AdWordsClient.LoadFromStorage(googleads_path)
     campaign_list = get_campaigns(adwords_client)
+    return campaign_list
+
+
+@mod.route('/mlb-campaigns')
+def mlb_campaigns():
+    adwords_client = adwords.AdWordsClient.LoadFromStorage(googleads_path)
+    campaign_list = get_mlb_campaigns(adwords_client)
     return campaign_list
 
 
