@@ -64,7 +64,7 @@ def update_target_api():
     ##return "Update target to: " + str(new_target)
 
 
-@mod.route('/bulk_update_target', methods=['POST'])
+@mod.route('/bulk_update_target', methods=['PUT'])
 def bulk_update_target_api():
     json = request.get_json()
     adwords_client = adwords.AdWordsClient.LoadFromStorage(googleads_path)
