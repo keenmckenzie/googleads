@@ -1,0 +1,110 @@
+ <!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>MLB Team Campaigns</title>
+	<style>
+		.nav-bar{
+			list-style-type: none;
+			margin: 0;
+			padding: 0;
+			overflow: hidden;
+			background-color: #333;
+		}
+		.nav-bar-item{
+			float: left;
+		}
+		.nav-link{
+			display: block;
+			color: white;
+			text-align: center;
+			padding: 14px 16px;
+			text-decoration: none;
+		}
+		.nav-link:hover{
+			background-color: #111;
+		}
+		.header{
+			background-color: #333;
+			text-align: center;
+			padding: 20px;
+			margin-bottom: 0;
+			color: white;
+		}
+		table {
+		  font-family: arial, sans-serif;
+		  border-collapse: collapse;
+		  width: 100%;
+		}
+
+		td, th {
+		  border: 1px solid #dddddd;
+		  text-align: left;
+		  padding: 8px;
+		}
+
+		tr:nth-child(even) {
+		  background-color: #dddddd;
+		}
+	</style>
+</head>
+
+<body>
+	<div>
+		<h2 class="header"> Ads App</h2>
+	</div>
+	<div>
+		<ul class="nav-bar">
+			<li class="nav-bar-item"> <a class="nav-link" href="home"> Home</a></li>
+			<li class="nav-bar-item"> <a class="nav-link" href="campaigns"> Get Campaigns</a></li>
+			<li class="nav-bar-item"> <a class="nav-link" href="update_target"> Update Target</a></li>
+		</ul>
+	</div>
+	<div class="results-header">
+		<h3> Campaigns</h3>
+	</div>
+	<div id="box"></div>
+
+</body>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mustache.js/0.8.1/mustache.js"></script>
+
+
+<script type="mustache/x-temp" id="tableTemp">
+  <table>
+    <tr>
+      <th> Name </th>
+      <th> Status </th>
+      <th> ID </th>
+      <th> Target </th>
+    </tr>
+  {% raw %}
+  <ul>
+  {{#campaigns}}
+    <tr>
+      <td> {{name}} </td>
+      <td> {{status}} </td>
+      <td> {{id}} </td>
+      <td> {{targetRoas}} </td>
+    </tr>
+  {{/campaigns}}
+  </table>
+  {% endraw %}
+</script>
+
+<script type="text/javascript">
+var requestUrl = 'https://fast-refuge-34078.herokuapp.com/api/mlb-campaigns';
+$(function() {
+
+  $.getJSON(requestUrl, function(result){
+    var template = $('#tableTemp').html();
+    var html = Mustache.render(template, result);
+    $('#box').html(html);
+  });
+
+});
+
+</script>
+
+</html>
