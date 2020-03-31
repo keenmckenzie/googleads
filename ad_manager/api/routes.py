@@ -54,7 +54,7 @@ def new_dynamic():
 
 @mod.route('/update_target')
 def update_target_api():
-    new_target = int(request.args.get('target'))/100
+    new_target = int(request.args.get('target')) / 100
     campaign_id = request.args.get('campaignId')
     campaign = Campaign(campaign_id)
     adwords_client = adwords.AdWordsClient.LoadFromStorage(googleads_path)
@@ -62,3 +62,16 @@ def update_target_api():
     ##return render_template('update_target_form.html')
     return redirect('https://fast-refuge-34078.herokuapp.com/update_target')
     ##return "Update target to: " + str(new_target)
+
+
+@mod.route('/bulk_update_target', methods=['PUT'])
+def bulk_update_target_api():
+    json = request.get_json()
+    adwords_client = adwords.AdWordsClient.LoadFromStorage(googleads_path)
+    campaign_array = json['campaigns']
+    for campaign in campaign_array:
+        campaign_object = Campaign(campaign['id'])
+        new_target = float(campaign['targetRoas'])
+        print(str(campaign_object.campaign_id) + ": " + str(new_target))
+        campaign_object.update_target(adwords_client, new_target)
+    return {"result": "success"}
