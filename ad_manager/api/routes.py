@@ -71,18 +71,7 @@ def bulk_update_target_api():
     campaign_array = json['campaigns']
     for campaign in campaign_array:
         campaign_object = Campaign(campaign['id'])
-        new_target = int(campaign['target']) / 100
+        new_target = float(campaign['targetRoas'])
         print(str(campaign_object.campaign_id) + ": " + str(new_target))
         campaign_object.update_target(adwords_client, new_target)
     return {"result": "success"}
-
-    '''
-    new_target = int(request.args.get('target'))/100
-    campaign_id = request.args.get('campaignId')
-    campaign = Campaign(campaign_id)
-    adwords_client = adwords.AdWordsClient.LoadFromStorage(googleads_path)
-    campaign.update_target(adwords_client, new_target)
-    ##return render_template('update_target_form.html')
-    return redirect('https://fast-refuge-34078.herokuapp.com/update_target')
-    ##return "Update target to: " + str(new_target)
-    '''
