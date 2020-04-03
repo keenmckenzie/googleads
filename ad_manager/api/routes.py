@@ -6,6 +6,7 @@ from ad_manager.api.campaign_management.set_campaign_status import update_status
 from ad_manager.api.campaign_management.new_complete_campaign import build_campaign
 from ad_manager.api.campaign_management.new_dynamic import dynamic_campaign
 from ad_manager.api.campaign_management.Campaign import Campaign
+from auth.user_auth import username, password
 from ad_manager.api.campaign_management.update_troas_target_campaign import update_target
 
 mod = Blueprint('api', __name__)
@@ -62,6 +63,15 @@ def update_target_api():
     ##return render_template('update_target_form.html')
     return redirect('https://fast-refuge-34078.herokuapp.com/update_target')
     ##return "Update target to: " + str(new_target)
+
+
+@mod.route('authorization', methods=['POST'])
+def authorize():
+    json = request.get_json()
+    if username == json['username'] & password == json['password']:
+        return {"auth": "true"}
+    else:
+        return {"auth": "false"}
 
 
 @mod.route('/bulk_update_target', methods=['PUT'])
