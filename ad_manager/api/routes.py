@@ -68,10 +68,10 @@ def update_target_api():
 @mod.route('authorization', methods=['POST'])
 def authorize():
     json = request.get_json()
-    if username == json['username'] & password == json['password']:
-        return {"auth": "true"}
+    if username == json['username'] and password == json['password']:
+        return {"auth": True}
     else:
-        return {"auth": "false"}
+        return {"auth": False}
 
 
 @mod.route('/bulk_update_target', methods=['PUT'])
