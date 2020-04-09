@@ -17,6 +17,22 @@ cwd = os.getcwd()
 googleads_path = cwd + '/auth/googleads.yaml'
 
 
+def token_required(f):
+    @wraps(f)
+    def decorated(*args, **kwargs):
+        auth = request.headers.get('Authorization')
+        if auth:
+            auth_token = auth.split(" ")[1]
+        else:
+            return jsonify({'error': 'Missing Token'}), 401
+
+        try:
+            data = jwt.decode(auth_token, secret_key)
+        except:
+            return jsonify({'error': 'Invalid Token'}), 401
+        return f(*args, **kwargs)
+    return decorated
+
 @mod.route('/get-campaigns')
 def campaigns():
     adwords_client = adwords.AdWordsClient.LoadFromStorage(googleads_path)
@@ -105,3 +121,9 @@ def bulk_update_target_api():
         print(str(campaign_object.campaign_id) + ": " + str(new_target))
         campaign_object.update_target(adwords_client, new_target)
     return {"result": "success"}
+
+
+@mod.route('/protected', methods=['GET'])
+@token_required
+def protected_get():
+    return jsonify({'message': 'you are viewing protected endpoint'})
