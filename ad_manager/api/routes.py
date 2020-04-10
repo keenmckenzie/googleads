@@ -31,7 +31,9 @@ def token_required(f):
         except:
             return jsonify({'error': 'Invalid Token'}), 401
         return f(*args, **kwargs)
+
     return decorated
+
 
 @mod.route('/get-campaigns')
 def campaigns():
@@ -100,7 +102,8 @@ def login():
     password_input = json['password']
     if username == json['username'] and password == json['password']:
         try:
-            token = jwt.encode({'user': username, 'exp': datetime.datetime.utcnow() + datetime.timedelta(seconds=30)}, secret_key)
+            token = jwt.encode({'user': username, 'exp': datetime.datetime.utcnow() + datetime.timedelta(minutes=30)},
+                               secret_key)
             print(token)
             return jsonify({'token': str(token)}), 200
         except Exception as e:
