@@ -1,17 +1,38 @@
 from googleads import adwords
 import os
-from flask import Blueprint, request, render_template, redirect, url_for
+from flask import Blueprint, request, render_template, redirect, jsonify
 from ad_manager.api.campaign_management.get_campaigns import get_campaigns, get_mlb_campaigns
 from ad_manager.api.campaign_management.set_campaign_status import update_status
 from ad_manager.api.campaign_management.new_complete_campaign import build_campaign
 from ad_manager.api.campaign_management.new_dynamic import dynamic_campaign
 from ad_manager.api.campaign_management.Campaign import Campaign
-from auth.user_auth import username, password
+from auth.user_auth import username, password, secret_key
+import datetime
+import jwt
+from functools import wraps
 from ad_manager.api.campaign_management.update_troas_target_campaign import update_target
 
 mod = Blueprint('api', __name__)
 cwd = os.getcwd()
 googleads_path = cwd + '/auth/googleads.yaml'
+
+
+def token_required(f):
+    @wraps(f)
+    def decorated(*args, **kwargs):
+        auth = request.headers.get('Authorization')
+        if auth:
+            auth_token = auth.split(" ")[1]
+        else:
+            return jsonify({'error': 'Missing Token'}), 401
+
+        try:
+            data = jwt.decode(auth_token, secret_key)
+        except:
+            return jsonify({'error': 'Invalid Token'}), 401
+        return f(*args, **kwargs)
+
+    return decorated
 
 
 @mod.route('/get-campaigns')
@@ -74,6 +95,24 @@ def authorize():
         return {"auth": False}
 
 
+@mod.route('/login', methods=['POST'])
+def login():
+    json = request.get_json()
+    username_input = json['username']
+    password_input = json['password']
+    if username == json['username'] and password == json['password']:
+        try:
+            token = jwt.encode({'user': username, 'exp': datetime.datetime.utcnow() + datetime.timedelta(minutes=30)},
+                               secret_key)
+            print(token)
+            return jsonify({'token': str(token)}), 200
+        except Exception as e:
+            print(e)
+            return jsonify({'error': "Server error"})
+    else:
+        return jsonify({'error': 'Invalid Username & Password'}), 401
+
+
 @mod.route('/bulk_update_target', methods=['PUT'])
 def bulk_update_target_api():
     json = request.get_json()
@@ -85,3 +124,9 @@ def bulk_update_target_api():
         print(str(campaign_object.campaign_id) + ": " + str(new_target))
         campaign_object.update_target(adwords_client, new_target)
     return {"result": "success"}
+
+
+@mod.route('/protected', methods=['GET'])
+@token_required
+def protected_get():
+    return jsonify({'message': 'you are viewing protected endpoint'})
